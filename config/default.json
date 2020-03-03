@@ -1,0 +1,5 @@
+{
+  "port": 5000,
+  "jwtSecter": "0000",
+  "mongoUri": "mongodb+srv://eduard:eduard@cluster0-xkvkt.azure.mongodb.net/app?retryWrites=true&w=majority"
+}
