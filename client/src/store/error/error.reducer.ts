@@ -3,7 +3,7 @@ import { Error } from "./error.model";
 import { GET_ERRORS, CLEAR_ERRORS } from "../types";
 const INITIAL_STATE = {
   msg: {},
-  status: "",
+  status: "fef",
   id: ""
 };
 

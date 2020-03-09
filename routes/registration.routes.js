@@ -13,11 +13,9 @@ router.post(
     check("payload.email", "das ist kein email").isEmail(),
     check("payload.password", "min länge 6 zeichen").isLength({ min: 6 })
   ],
-  // async (req, res) => {
-  //   console.log(req.body);
 
   async (req, res) => {
-    console.log(req.body.payload);
+    console.log("req.body.payload");
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -35,7 +33,9 @@ router.post(
       console.log(candidate);
 
       if (candidate) {
-        return res.status(400).json({ message: "User bereits existiert" });
+        return res.json({ message: "User bereits existiert" });
+
+        // return res.status(400).json({ message: "User bereits existiert" });
       }
 
       const hashedPassword = await bcrypt.hash(password, 12);
@@ -49,8 +49,8 @@ router.post(
       console.log("das ist user", user);
 
       await user.save();
-      // res.status(201).json({ message: "Du bist registriert" });
-      res.status(201);
+      res.status(201).json({ message: "Du bist registriert" });
+      // res.status(201);
     } catch (e) {
       res.status(500).json({ message: "Die daten sind nicht korrekt" });
     }

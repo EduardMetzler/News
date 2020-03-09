@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useDispatch, connect } from "react-redux";
-import { singInFormLoad } from "../store/user/user.actions";
+import React, { useState, useEffect } from "react";
+import { useDispatch, connect, useSelector } from "react-redux";
+import { login, loding } from "../store/auth/auth.actions";
 import "../index.css";
 import { useHistory } from "react-router-dom";
 
@@ -8,19 +8,26 @@ import { AppState } from "../store/model";
 
 interface ConnectedState {
   isAuthenticated: boolean;
-  userDaten: Object | undefined;
+  isLoading: boolean;
+
+  // userDaten: Object | undefined;
 }
 
 const mapStateToProps = (state: AppState) => ({
-  isAuthenticated: state.user.isAuthenticated,
+  isAuthenticated: !!localStorage.getItem("token"),
+  isLoading: state.auth.isLoading
+
+  // isAuthenticated: state.auth.isAuthenticated
   // isAuthenticated: !state.user.userDaten
-  userDaten: state.user.userDaten
+  // userDaten: state.user.userDaten
 });
 
-export const SingInFormCom: React.FC<ConnectedState> = ({
+export const SingInFormComponent: React.FC<ConnectedState> = ({
   isAuthenticated,
-  userDaten
+  isLoading
 }) => {
+  // const counter = useSelector(state => state.auth.isLoading);
+
   const [formSingIn, setFormSingIn] = useState({
     email: "",
     password: ""
@@ -29,9 +36,23 @@ export const SingInFormCom: React.FC<ConnectedState> = ({
   const dispatch = useDispatch();
   const history = useHistory();
 
-  //   useEffect(() => {
-  //     window.M.updateTextFields();
-  //   }, []);
+  useEffect(() => {
+    // window.M.updateTextFields();
+    if (isAuthenticated) {
+      history.push("/");
+    }
+  });
+  // useEffect(() => {
+  // const token = localStorage.getItem("token");
+  // const userId = localStorage.getItem("userId");
+  //   const t =
+  //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZTYxNzY0OWYwNmIwNzRlNjQ0MDZhNDIiLCJpYXQiOjE1ODM1MDYzNTksImV4cCI6MTU4MzUwOTk1OX0.daFK57Is2TkErQQf1kpyfb_ECbJxKOPBJ_TzSizoHxY";
+  //   if (t) {
+  //     // login(token,userId);
+  //     console.log("autolog");
+  //     dispatch(login(t));
+  //   }
+  // });
   const changeHandlerSingIn = (event: any) => {
     setFormSingIn({
       ...formSingIn,
@@ -40,10 +61,19 @@ export const SingInFormCom: React.FC<ConnectedState> = ({
   };
   const singInFormPost = () => {
     console.log(formSingIn);
-    dispatch(singInFormLoad(formSingIn));
-
-    history.push(`/`);
+    dispatch(login(formSingIn));
+    dispatch(loding(true));
   };
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   const userId = localStorage.getItem("userId");
+
+  //   if (token && userId) {
+  //     // login(token,userId);
+  //     console.log("autolog");
+  //     dispatch(login(token));
+  //   }
+  // });
 
   return (
     // <div>edewwe</div>
@@ -84,10 +114,12 @@ export const SingInFormCom: React.FC<ConnectedState> = ({
             <div className="card-action">
               <button
                 className="btn yellow darken-4 waves-effect waves-light"
+                disabled={isLoading}
                 onClick={singInFormPost}
               >
                 Fertig
               </button>
+              {isLoading ? <div>Anmeldung...</div> : null}
             </div>
           </div>
         </div>
@@ -95,4 +127,4 @@ export const SingInFormCom: React.FC<ConnectedState> = ({
     </div>
   );
 };
-export const SingInForm = connect(mapStateToProps)(SingInFormCom);
+export const SingInForm = connect(mapStateToProps)(SingInFormComponent);

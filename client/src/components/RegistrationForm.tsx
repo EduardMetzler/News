@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, connect } from "react-redux";
-import { registrationFormLoad } from "../store/user/user.actions";
+// import { registrationFormLoad } from "../store/user/user.actions";
 import "../index.css";
 import { AppState } from "../store/model";
+import {
+  register,
+  login,
+  registerSucces
+  // registerLogin
+} from "../store/auth/auth.actions";
+import { useHistory } from "react-router-dom";
 
 interface ConnectedState {
   // articles?: Article[];
   // showAllNews?: boolean;
   // error: boolean;
-  // isLoading: boolean;
+  toSignIn: boolean;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  // user: {};
 }
 
 const mapStateToProps = (state: AppState) => ({
@@ -16,18 +26,32 @@ const mapStateToProps = (state: AppState) => ({
   // showAllNews: state.view.showAllNews,
   // error: state.view.error,
   // isLoading: state.view.isLoading
+  // user: state.authStore.user
+  isAuthenticated: !!localStorage.getItem("token"),
+  toSignIn: state.auth.toSignIn,
+  isLoading: state.auth.isLoading
 });
 
-export const RegistrationFormComponent: React.FC = ({}) => {
+export const RegistrationFormComponent: React.FC<ConnectedState> = ({
+  isLoading,
+  isAuthenticated,
+  toSignIn
+}) => {
   const [formRegister, setFormRegister] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: ""
   });
+  const history = useHistory();
 
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    // window.M.updateTextFields();
+    if (toSignIn) {
+      history.push("/signIn");
+    }
+  });
   //   useEffect(() => {
   //     window.M.updateTextFields();
   //   }, []);
@@ -39,7 +63,8 @@ export const RegistrationFormComponent: React.FC = ({}) => {
   };
   const registrationFormPost = () => {
     console.log(formRegister);
-    dispatch(registrationFormLoad(formRegister));
+    dispatch(register(formRegister));
+    // dispatch(registerLogin(formRegister));
   };
 
   return (
@@ -105,10 +130,12 @@ export const RegistrationFormComponent: React.FC = ({}) => {
             <div className="card-action">
               <button
                 className="btn yellow darken-4 waves-effect waves-light"
+                disabled={isLoading}
                 onClick={registrationFormPost}
               >
                 Fertig
               </button>
+              {isLoading ? <div>Registrirung...</div> : null}
             </div>
           </div>
         </div>

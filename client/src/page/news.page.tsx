@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AppState } from "../store/model";
 import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
-import { isAuth } from "../store/user/user.actions";
+import { login } from "../store/auth/auth.actions";
+import { News } from "../components/News";
+
+// import { isAuth } from "../store/user/user.actions";
 // import { newsSaveArticles, newsCheckArticles } from "../store/news/new.action";
 // import { Article } from "../store/news/news.model";
 // import { NewsListe } from "../components/NewsListe";
@@ -12,7 +15,7 @@ import { isAuth } from "../store/user/user.actions";
 
 // import { NewsMainComponent } from "../components/newsMainComponent";
 interface ConnectedState {
-  isAuthenticated: boolean;
+  // isAuthenticated: boolean;
 }
 
 const mapStateToProps = (state: AppState) => ({
@@ -21,19 +24,10 @@ const mapStateToProps = (state: AppState) => ({
   // error: state.view.error,
   // isLoading: state.view.isLoading
   // isAuthenticated: state.auth.isAuthenticated
-  isAuthenticated: state.user.isAuthenticated
+  // isAuthenticated: state.user.isAuthenticated
 });
-export const NewsComponent: React.FC<ConnectedState> = ({
-  isAuthenticated
-}) => {
+export const NewsPage: React.FC<ConnectedState> = ({}) => {
   const dispatch = useDispatch();
 
-  return (
-    <div>
-      {/* <button onClick={() => dispatch(isAuth())}>test</button> */}
-      {/* <div>{isAuthenticated}</div> */}
-    </div>
-  );
+  return <News />;
 };
-
-export const News = connect(mapStateToProps)(NewsComponent);

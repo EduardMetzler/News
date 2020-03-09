@@ -1,34 +1,63 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AppState } from "../store/model";
 import { useHistory } from "react-router-dom";
 
 import { connect, useDispatch } from "react-redux";
-import { isAuth, singInUser, noAuth } from "../store/user/user.actions";
+// import { isAuth, singInUser, noAuth } from "../store/user/user.actions";
 import { Link } from "react-router-dom";
+import { logOut, login, loginSuccess } from "../store/auth/auth.actions";
+import { userLoad } from "../store/user/user.actions";
 
 interface ConnectedState {
   isAuthenticated: boolean;
+  firstName: String;
+  token: String;
   // userDaten: Object | undefined;
 }
 
 const mapStateToProps = (state: AppState) => ({
-  // isAuthenticated: state.user.isAuthenticated,
-  isAuthenticated: !!localStorage.getItem("token"),
-  userDaten: state.user.userDaten
+  // isAuthenticated: true
+  // isAuthenticated: !!localStorage.getItem("token")
+  isAuthenticated: state.auth.isAuthenticated,
+  firstName: state.user.firstName
+  // token: state.auth.token
+
+  // userDaten: state.user.userDaten
 });
 
 export const NavbarComponent: React.FC<ConnectedState> = ({
-  isAuthenticated
+  isAuthenticated,
+  firstName,
+  token
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      dispatch(loginSuccess());
+      // history.push(`/`);
 
-  console.log(isAuthenticated);
-  const logOut = () => {
+      console.log("token");
+    }
+  });
+  useEffect(() => {
+    // window.M.updateTextFields();
+    if (isAuthenticated && !firstName) {
+      // history.push("/");
+      dispatch(userLoad());
+      console.log("newload", token);
+    }
+  });
+
+  // console.log(isAuthenticated);
+  const logOutFunction = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+
     history.push(`/`);
 
-    dispatch(isAuth(false));
+    dispatch(logOut());
+    // dispatch(userLoad(false));
   };
   return (
     <>
@@ -41,20 +70,26 @@ export const NavbarComponent: React.FC<ConnectedState> = ({
             <i className="material-icons">menu</i>
           </a>
           <ul className="right hide-on-med-and-down">
-            {/* <li>
-              <a href="sass.html">Sass</a>
-            </li> */}
-            {/* <li onClick={() => dispatch(isAuth())}> */}
+            <li>{isAuthenticated ? <Link to="admin">Admin </Link> : null}</li>
             <li>
               {!isAuthenticated ? <Link to="signIn">Anmelden </Link> : null}
             </li>
             {/* <li onClick={() => dispatch(isAuth())}> */}
             <li>
-              {isAuthenticated ? <div onClick={logOut}>Abmelden </div> : null}
+              {isAuthenticated ? (
+                <div onClick={logOutFunction}>Abmelden </div>
+              ) : null}
             </li>
             <li>
               {!isAuthenticated ? (
                 <Link to="registration">Registrieren</Link>
+              ) : null}
+            </li>
+            <li>
+              {isAuthenticated && firstName ? (
+                <div style={{ marginLeft: "30px", marginRight: "30px" }}>
+                  Hallo {firstName} !
+                </div>
               ) : null}
             </li>
           </ul>

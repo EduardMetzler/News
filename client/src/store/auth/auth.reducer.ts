@@ -1,56 +1,91 @@
 import { Action } from "redux";
-import { Auth } from "./auth.model";
+import { AuthStore } from "./auth.model";
 import {
-  USER_LOADED,
-  USER_LOADING,
-  AUTH_ERROR,
+  REGISTER,
+  LOGIN,
   LOGIN_SuCCESS,
-  LOGOUT_SUCCESS,
-  REGISTER_SUCCESS,
+  LOGOUT,
+  LOADING,
   REGISTER_FAIL,
-  LOGIN_FAIL
-} from "../types";
+  LOGIN_FAIL,
+  loginFail,
+  REGISTER_SUCCESS,
+  loding
+} from "./auth.actions";
+import { register } from "../../serviceWorker";
 const INITIAL_STATE = {
   token: localStorage.getItem("token"),
   isAuthenticated: false,
+  toSignIn: false,
+
   isLoading: false,
-  user: ""
+  userDaten: {},
+  error: ""
+  // token: String | null;
+  // isAuthenticated: boolean;
+  // isLoading: boolean;
 };
 
-export default (state: Auth = INITIAL_STATE, action: Action): Auth => {
+export default (
+  state: AuthStore = INITIAL_STATE,
+  action: Action
+): AuthStore => {
   switch (action.type) {
-    case USER_LOADED:
+    case REGISTER:
       return {
         ...state,
         isLoading: true
       };
-    case USER_LOADING:
-      return {
-        ...state,
-        isAuthenticated: true,
-        isLoading: false
-        // user: action.payload
-      };
     case LOGIN_SuCCESS:
-    case REGISTER_SUCCESS:
       return {
         ...state,
-        // ...action.payload,
-        isAuthenticated: true,
+        isAuthenticated: !!localStorage.getItem("token"),
         isLoading: false
       };
-    case AUTH_ERROR:
-    case LOGOUT_SUCCESS:
-    case LOGIN_FAIL:
     case REGISTER_FAIL:
       return {
         ...state,
-        token: null,
-        user: "",
-        isAuthenticated: false,
         isLoading: false
       };
+    case LOGOUT:
+      return {
+        ...state,
+        isAuthenticated: !!localStorage.getItem("token")
+      };
+    // case LOADING:
+    // const { payload } = action as ReturnType<typeof loding>;
 
+    //   return {
+    //     ...state,
+    //     isLoading: payload1.daten
+    //   };
+
+    case LOGIN_FAIL:
+      // const { payload } = action as ReturnType<typeof loginFail>;
+
+      return {
+        ...state,
+        // error: payload.message,
+        isLoading: false
+      };
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        toSignIn: true
+      };
+    case LOGIN:
+      return {
+        ...state,
+        isLoading: true
+      };
+    // case REGISTER:
+    //   const { payload } = action as ReturnType<typeof register>;
+
+    //   return {
+    //     ...state,
+    //     isLoading: payload
+    //   };
     default:
       return state;
   }

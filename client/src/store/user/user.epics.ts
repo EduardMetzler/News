@@ -1,139 +1,33 @@
 import { ActionsObservable, ofType } from "redux-observable";
+
+import { map, switchMap, filter, mergeMap, catchError } from "rxjs/operators";
 // import { mergeMap, map, catchError, filter, switchMap } from "rxjs/operators";
-import { switchMap, map, filter } from "rxjs/operators";
-import { isOfType } from "typesafe-actions";
+import axios from "axios";
 
 import { ajax } from "rxjs/ajax";
-// import { of } from "rxjs";
-// import { isOfType } from "typesafe-actions";
-import {
-  registrationFormLoad,
-  REGISTRATION_FORM_LOAD,
-  singInFormLoad,
-  SINGIN_FORM_LOAD,
-  singInUser,
-  SINGIN_USER,
-  isAuth,
-  noAuth,
-  NO_AUTH
-} from "./user.actions";
-// import { useCallback, useEffect } from "react";
-// import { useHttp } from "../../hooks/http.hook";
+import { of } from "rxjs";
+import { isOfType } from "typesafe-actions";
+import // registerLogin
+"./user.actions";
+import { useHistory } from "react-router-dom";
+import { userSave, userLoad, USER_LOAD } from "../user/user.actions";
+import { useDispatch } from "react-redux";
 
-const getRegistrationFormLoadEpic = (
-  action$: ActionsObservable<ReturnType<typeof registrationFormLoad>>
-) =>
-  action$.pipe(
-    ofType<ReturnType<typeof registrationFormLoad>>(REGISTRATION_FORM_LOAD),
+const storageName = "userData";
 
-    switchMap(({ payload }) => {
-      return ajax({
-        url: "api/registration",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: {
-          payload
-        }
-      });
-    })
-  );
-const getSingInFormLoadEpic = (
-  action$: ActionsObservable<ReturnType<typeof singInFormLoad>>
-) =>
-  action$
-    .pipe(
-      ofType<ReturnType<typeof singInFormLoad>>(SINGIN_FORM_LOAD),
+interface getArticles {
+  type: typeof USER_LOAD;
+  payload: any;
+}
 
-      switchMap(({ payload }) => {
-        return ajax({
-          url: "api/signIn",
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: {
-            payload
-          }
-        });
-      })
-    )
-    .pipe(
-      map(response => {
-        if (response) {
-          console.log(response.response.token);
-          console.log(response);
+// const dispatch = useDispatch();
 
-          localStorage.setItem("token", response.response.token);
-
-          return singInUser(response.response.token), isAuth(true);
-        }
-        // if (response["response"] && response["response"]["token"]) {
-        //   console.log("________________SUCCESS");
-        //   console.log(response["response"]["token"]);
-        //   return doLoginUser(response["response"]["token"]);
-        // console.log(response.response);
-        // }
-      })
-    );
-
-// const getisAuthEpic = (
-//   action$: ActionsObservable<ReturnType<typeof singInUser>>
-// ) =>
-//   action$.pipe(
-//     filter(isOfType(SINGIN_USER)),
-//     map((action: any) => {
-//       if (action.payload.token) {
-//         console.log(action.payload.token);
-//         // localStorage.setItem("userDaten", action.payload.token);
-//         // localStorage.removeItem("userDaten");
-//         return isAuth(true);
-//       } else {
-//         // console.log(action.payload.token);
-//         return isAuth(false);
-//       }
-//     })
-//     // map(action => isAuth(action))
-//   );
-
-// const getUserDaten = (
-//   action$: ActionsObservable<ReturnType<typeof singInUser>>
-// ) =>
-//   action$.pipe(
-//     filter(isOfType(SINGIN_USER)),
-//     map((action: any) => {
-//       if (action.payload.token) {
-//         console.log(action.payload.token);
-//         // localStorage.setItem("userDaten", action.payload.token);
-//         // localStorage.removeItem("userDaten");
-//         return isAuth(true);
-//       } else {
-//         console.log(action.payload.token);
-//         return isAuth(false);
-//       }
-//     })
-//     // map(action => isAuth(action))
-//   );
-
-export const userEpics = [getRegistrationFormLoadEpic, getSingInFormLoadEpic];
-// .pipe(
-//   map(response => {
-//     if (response["response"] && response["response"]["token"]) {
-//       console.log("________________SUCCESS");
-//       console.log(response["response"]["token"]);
-
-//       // return doLoginUser(response["response"]["token"]);
-//     }
-//   })
-// );
-///////////////////////////////////////////////////////////////////////////////////////
-// const getRegistrationFormLoadEpic = (
-//   action$: ActionsObservable<ReturnType<typeof registrationFormLoad>>
+// const postRegisterEpic = (
+//   action$: ActionsObservable<ReturnType<typeof register>>
 // ) =>
 //   action$
 //     .pipe(
-//       ofType<ReturnType<typeof registrationFormLoad>>(REGISTRATION_FORM_LOAD),
+//       ofType<ReturnType<typeof register>>(REGISTER),
 
 //       switchMap(({ payload }) => {
 //         return ajax({
@@ -143,40 +37,76 @@ export const userEpics = [getRegistrationFormLoadEpic, getSingInFormLoadEpic];
 //             "Content-Type": "application/json"
 //           },
 //           body: {
-//             firstName: "payload.firstName",
-//             lastName: "e",
-//             email: "e",
-//             password: "e"
+//             payload
 //           }
 //         });
 //       })
 //     )
 //     .pipe(
 //       map(response => {
-//         if (response["response"] && response["response"]["token"]) {
-//           console.log("________________SUCCESS");
-//           console.log(response["response"]["token"]);
+//         if (response.status === 201) {
+//           console.log(response.response.message);
+//           return registerSucces();
+//         } else if (response.status !== 201) {
+//           console.log(response.response);
 
-//           // return doLoginUser(response["response"]["token"]);
+//           console.log(response.response.message);
+
+//           return registerFail();
 //         }
 //       })
 //     );
 
-////////////////////////////////////////////////////////////////////////////////
-// const getRegistrationFormLoadEpic = (
-//   action$: ActionsObservable<ReturnType<typeof registrationFormLoad>>
-// ) =>
-//   action$.pipe(
-//     filter(isOfType(REGISTRATION_FORM_LOAD)),
-//     mergeMap(() =>
-//       ajax({
-//         url:
-//           // "https://newsapi.org/v2/top-headlines?country=de&apiKey=059becd769be4624a38786f5e50c9ea7",
-//           "api/registration",
-//         method: "POST"
-//       }).pipe(
-//         map((response: any) => console.log(response)),
-//         catchError(() => of(console.log("error")))
-//       )
-//     )
-//   );
+const postuserLoadEpic = (
+  action$: ActionsObservable<ReturnType<typeof userLoad>>
+) =>
+  action$.pipe(
+    filter(isOfType(USER_LOAD)),
+    // ofType<ReturnType<typeof login>>(LOGIN),
+
+    mergeMap((action: getArticles) => {
+      //   const token = action.payload.daten.email;
+
+      return ajax({
+        url: "api/signIn",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: {
+          //   email,
+          //   password
+        }
+      }).pipe(
+        // map(
+        //   (response: any) =>
+        //     userSave(response.response.firstName, response.response.lastName)
+        //   // loginSuccess()
+        // ),
+        // catchError((response: any) =>
+        //   of(console.log(response.response.message))
+        // )
+        map(response => {
+          if (response.response.token && response.response.userId) {
+            console.log(response.response.firstName);
+            localStorage.setItem("token", response.response.token);
+            localStorage.setItem("userId", response.response.userId);
+
+            console.log(response);
+            console.log(response.response.message);
+
+            return (
+              //   loginSuccess(),
+              userSave(response.response.firstName, response.response.lastName)
+            );
+          } else if (!response.response.token || !response.response.userId) {
+            console.log(response.response.message);
+            // return loginFail();
+          }
+          catchError(() => of(console.log("unbekante error")));
+        })
+      );
+    })
+  );
+
+export const userEpics = [postuserLoadEpic];

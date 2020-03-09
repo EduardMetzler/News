@@ -1,5 +1,6 @@
-export interface AuthStore {
-  isAuthenticated: boolean;
-  userDaten: Object;
-  token: String | null;
+export interface UserStore {
+  firstName: String;
+  lastName: String;
+  userLoad: boolean;
+  error: string;
 }

@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const app = express();
 app.use(express.json({ extended: true }));
 
-app.use("/api/", require("./routes/newsLoad.routes"));
+app.use("/api", require("./routes/newsLoad.routes"));
 app.use("/api/registration", require("./routes/registration.routes"));
 app.use("/api/signIn", require("./routes/signIn.rotes"));
 
