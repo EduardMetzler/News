@@ -32,6 +32,9 @@ export const SingInFormComponent: React.FC<ConnectedState> = ({
     email: "",
     password: ""
   });
+  // const [formValid, setFormValid] = useState({
+  //   Valid:0
+  // })
 
   const dispatch = useDispatch();
   const history = useHistory();

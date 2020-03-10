@@ -6,6 +6,7 @@
 // export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 // export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 // export const REGISTER_FAIL = "REGISTER_FAIL";
+
 import { AuthStore } from "./auth.model";
 import axios from "axios";
 
@@ -17,6 +18,7 @@ export const LOADING = "LOADING";
 export const REGISTER_FAIL = "REGISTER_FAIL";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_LOGIN = "REGISTER_LOGIN";
+export const NEW_SETERROR = "NEW_SETERROR";
 
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
@@ -57,6 +59,11 @@ export const loginFail = () => ({
 export const registerSucces = () => ({
   type: REGISTER_SUCCESS,
   payload: {}
+});
+
+export const newSetError = (date: any) => ({
+  type: NEW_SETERROR,
+  payload: { date }
 });
 
 // export const test = (daten: any) => {

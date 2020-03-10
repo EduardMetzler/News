@@ -10,7 +10,8 @@ import {
   LOGIN_FAIL,
   loginFail,
   REGISTER_SUCCESS,
-  loding
+  loding,
+  NEW_SETERROR
 } from "./auth.actions";
 import { register } from "../../serviceWorker";
 const INITIAL_STATE = {
@@ -86,6 +87,12 @@ export default (
     //     ...state,
     //     isLoading: payload
     //   };
+    case NEW_SETERROR:
+      return {
+        ...state,
+        isLoading: false
+      };
+
     default:
       return state;
   }
