@@ -6,12 +6,13 @@ import { connect, useDispatch } from "react-redux";
 // import { isAuth, singInUser, noAuth } from "../store/user/user.actions";
 import { Link } from "react-router-dom";
 import { logOut, login, loginSuccess } from "../store/auth/auth.actions";
-import { userLoad } from "../store/user/user.actions";
+import { userLoad, userDelete } from "../store/user/user.actions";
 
 interface ConnectedState {
   isAuthenticated: boolean;
   firstName: String;
   token: String;
+  admin: boolean;
   // userDaten: Object | undefined;
 }
 
@@ -19,7 +20,8 @@ const mapStateToProps = (state: AppState) => ({
   // isAuthenticated: true
   // isAuthenticated: !!localStorage.getItem("token")
   isAuthenticated: state.auth.isAuthenticated,
-  firstName: state.user.firstName
+  firstName: state.user.firstName,
+  admin: state.user.admin
   // token: state.auth.token
 
   // userDaten: state.user.userDaten
@@ -28,7 +30,8 @@ const mapStateToProps = (state: AppState) => ({
 export const NavbarComponent: React.FC<ConnectedState> = ({
   isAuthenticated,
   firstName,
-  token
+  token,
+  admin
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -36,7 +39,6 @@ export const NavbarComponent: React.FC<ConnectedState> = ({
     if (localStorage.getItem("token")) {
       dispatch(loginSuccess());
       // history.push(`/`);
-
       console.log("token");
     }
   });
@@ -57,7 +59,7 @@ export const NavbarComponent: React.FC<ConnectedState> = ({
     history.push(`/`);
 
     dispatch(logOut());
-    // dispatch(userLoad(false));
+    dispatch(userDelete());
   };
   return (
     <>
@@ -70,7 +72,7 @@ export const NavbarComponent: React.FC<ConnectedState> = ({
             <i className="material-icons">menu</i>
           </a>
           <ul className="right hide-on-med-and-down">
-            <li>{isAuthenticated ? <Link to="admin">Admin </Link> : null}</li>
+            <li>{admin ? <Link to="admin">Admin </Link> : null}</li>
             <li>
               {!isAuthenticated ? <Link to="signIn">Anmelden </Link> : null}
             </li>

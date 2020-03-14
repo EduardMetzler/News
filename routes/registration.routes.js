@@ -44,6 +44,7 @@ router.post(
         firstName,
         lastName,
         email,
+        admin: false,
         password: hashedPassword
       });
       console.log("das ist user", user);

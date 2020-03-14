@@ -1,7 +1,12 @@
 import React from "react";
-// import { SingInForm } from "../components/SingInForm";
+import { Admin } from "../components/admin";
+import { useDispatch } from "react-redux";
+import { admin } from "../store/user/user.actions";
 
-export const Admin: React.FC = ({}) => {
-  // return <div></div>;
-  return <div></div>;
+export const AdminPage: React.FC = ({}) => {
+  const dispatch = useDispatch();
+  // console.log("terrrrrrrrrrrrrrrrrrrrr");
+  dispatch(admin());
+
+  return <Admin />;
 };

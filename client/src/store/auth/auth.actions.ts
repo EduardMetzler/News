@@ -19,6 +19,7 @@ export const REGISTER_FAIL = "REGISTER_FAIL";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_LOGIN = "REGISTER_LOGIN";
 export const NEW_SETERROR = "NEW_SETERROR";
+export const TOKEN_SAVE = "TOKEN_SAVE";
 
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
@@ -47,9 +48,9 @@ export const loding = (daten: boolean) => ({
   payload: { daten }
 });
 
-export const registerFail = () => ({
+export const registerFail = (error: any) => ({
   type: REGISTER_FAIL,
-  payload: {}
+  payload: { error }
 });
 
 export const loginFail = () => ({
@@ -61,10 +62,14 @@ export const registerSucces = () => ({
   payload: {}
 });
 
-export const newSetError = (date: any) => ({
+export const newSetError = (date: string, isload: boolean) => ({
   type: NEW_SETERROR,
-  payload: { date }
+  payload: { date, isload }
 });
+// export const tokenSave = (date: any) => ({
+//   type: TOKEN_SAVE,
+//   payload: { date }
+// });
 
 // export const test = (daten: any) => {
 //   return (dispatch: any) => {

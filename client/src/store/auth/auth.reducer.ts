@@ -1,5 +1,7 @@
 import { Action } from "redux";
 import { AuthStore } from "./auth.model";
+import { UserStore } from "../user/user.model";
+
 import {
   REGISTER,
   LOGIN,
@@ -11,17 +13,24 @@ import {
   loginFail,
   REGISTER_SUCCESS,
   loding,
-  NEW_SETERROR
+  NEW_SETERROR,
+  loginSuccess,
+  TOKEN_SAVE,
+  newSetError
+  // tokenSave
 } from "./auth.actions";
-import { register } from "../../serviceWorker";
+
 const INITIAL_STATE = {
   token: localStorage.getItem("token"),
   isAuthenticated: false,
   toSignIn: false,
+  firstName: "",
+  lastName: "",
 
   isLoading: false,
   userDaten: {},
-  error: ""
+  error: "",
+  logInError: ""
   // token: String | null;
   // isAuthenticated: boolean;
   // isLoading: boolean;
@@ -38,9 +47,13 @@ export default (
         isLoading: true
       };
     case LOGIN_SuCCESS:
+      // const { payload } = action as ReturnType<typeof loginSuccess>;
+
       return {
         ...state,
-        isAuthenticated: !!localStorage.getItem("token"),
+        isAuthenticated: true,
+
+        // isAuthenticated: !!localStorage.getItem("token"),
         isLoading: false
       };
     case REGISTER_FAIL:
@@ -87,10 +100,22 @@ export default (
     //     ...state,
     //     isLoading: payload
     //   };
-    case NEW_SETERROR:
+
+    case LOGIN_SuCCESS:
+      // const { payload } = action as ReturnType<typeof loginSuccess>;
+
       return {
         ...state,
         isLoading: false
+      };
+
+    case NEW_SETERROR:
+      const { payload } = action as ReturnType<typeof newSetError>;
+
+      return {
+        ...state,
+        isLoading: payload.isload,
+        logInError: payload.date
       };
 
     default:

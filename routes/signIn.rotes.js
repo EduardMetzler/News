@@ -72,6 +72,7 @@ router.post(
   //   check("password", "geben Sie password").exists()
   // ],
   async (req, res) => {
+    console.log("2fffffffffffff");
     try {
       // console.log("1", req.body);
       // const errors = validationResult(req);
@@ -90,10 +91,10 @@ router.post(
 
       if (!user) {
         console.log("Email oder passwort falsch");
-        return res.json({ message: "///Email oder passwort falsch" });
-        // return res
-        //   .status(400)
-        //   .json({ message: "///Email oder passwort falsch" });
+        // return res.json({ message: "///Email oder passwort falsch" });
+        return res
+          .status(400)
+          .json({ message: "///Email oder passwort falsch" });
       }
       const isMatch = await bcrypt.compare(password, user.password);
       console.log(password);
@@ -110,7 +111,8 @@ router.post(
         userId: user.id,
         message: " enter",
         firstName: user.firstName,
-        lastName: user.lastName
+        lastName: user.lastName,
+        admin: user.admin
       });
     } catch (e) {
       res.status(500).json({ message: "error" });

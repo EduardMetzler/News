@@ -5,7 +5,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 // import { viewEpics } from "./view/view.epics";
 // import { newsEpics } from "./news/news.epics";
 import { authEpics } from "./auth/auth.epics";
-// import { userEpics } from "./user/user.epics";
+
+import { userEpics } from "./user/user.epics";
 
 // import viewReducer from "./view/view.redcusers";
 // import newsReducer from "./news/news.reducers";
@@ -14,7 +15,7 @@ import errorReducer from "./error/error.reducer";
 import authReducer from "./auth/auth.reducer";
 import userReducer from "./user/user.reducer";
 
-const epic = combineEpics(...authEpics);
+const epic = combineEpics(...authEpics, ...userEpics);
 const epicDependencies = {};
 const epicMiddleware = createEpicMiddleware({ dependencies: epicDependencies });
 

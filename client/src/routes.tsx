@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { NewsPage } from "./page/news.page";
 import { SignIn } from "./page/signIn.page";
-import { Admin } from "./page/admin.page";
+import { AdminPage } from "./page/admin.page";
 
 import { Registration } from "./page/registration.page";
 import { AppState } from "./store/model";
@@ -42,7 +42,7 @@ export const useRoutes: React.FC<ConnectedState> = () => {
         <SignIn></SignIn>
       </Route>
       <Route path="/admin" exact>
-        <Admin></Admin>
+        <AdminPage></AdminPage>
       </Route>
 
       <Route path="/registration" exact>

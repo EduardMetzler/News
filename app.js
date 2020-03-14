@@ -8,6 +8,7 @@ app.use(express.json({ extended: true }));
 app.use("/api", require("./routes/newsLoad.routes"));
 app.use("/api/registration", require("./routes/registration.routes"));
 app.use("/api/signIn", require("./routes/signIn.rotes"));
+app.use("/api/admin", require("./routes/admin.routse"));
 
 const PORT = config.get("port") || 5000;
 async function start() {

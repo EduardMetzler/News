@@ -6,16 +6,19 @@ import { connect, useDispatch } from "react-redux";
 // import { isAuth, singInUser, noAuth } from "../store/user/user.actions";
 import { Link } from "react-router-dom";
 import { logOut, login, loginSuccess } from "../store/auth/auth.actions";
-import { userLoad } from "../store/user/user.actions";
+import { userLoad, admin } from "../store/user/user.actions";
 
 interface ConnectedState {}
 
 const mapStateToProps = (state: AppState) => ({});
 
 export const AdminComponent: React.FC<ConnectedState> = ({}) => {
+  const dispatch = useDispatch();
+  console.log("terrrrrrrrrrrrrrrrrrrrr");
+  dispatch(admin());
   return (
     <>
-      <div>admin</div>
+      <div>Ich bin admin</div>
     </>
   );
 };

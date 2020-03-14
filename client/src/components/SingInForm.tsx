@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, connect, useSelector } from "react-redux";
-import { login, loding } from "../store/auth/auth.actions";
+import { login, loding, newSetError } from "../store/auth/auth.actions";
 import "../index.css";
 import { useHistory } from "react-router-dom";
 
@@ -9,13 +9,15 @@ import { AppState } from "../store/model";
 interface ConnectedState {
   isAuthenticated: boolean;
   isLoading: boolean;
+  logInError: String;
 
   // userDaten: Object | undefined;
 }
 
 const mapStateToProps = (state: AppState) => ({
   isAuthenticated: !!localStorage.getItem("token"),
-  isLoading: state.auth.isLoading
+  isLoading: state.auth.isLoading,
+  logInError: state.auth.logInError
 
   // isAuthenticated: state.auth.isAuthenticated
   // isAuthenticated: !state.user.userDaten
@@ -24,7 +26,8 @@ const mapStateToProps = (state: AppState) => ({
 
 export const SingInFormComponent: React.FC<ConnectedState> = ({
   isAuthenticated,
-  isLoading
+  isLoading,
+  logInError
 }) => {
   // const counter = useSelector(state => state.auth.isLoading);
 
@@ -66,6 +69,7 @@ export const SingInFormComponent: React.FC<ConnectedState> = ({
     console.log(formSingIn);
     dispatch(login(formSingIn));
     dispatch(loding(true));
+    dispatch(newSetError("", true));
   };
   // useEffect(() => {
   //   const token = localStorage.getItem("token");
@@ -123,6 +127,7 @@ export const SingInFormComponent: React.FC<ConnectedState> = ({
                 Fertig
               </button>
               {isLoading ? <div>Anmeldung...</div> : null}
+              {logInError ? <div>{logInError}</div> : null}
             </div>
           </div>
         </div>
