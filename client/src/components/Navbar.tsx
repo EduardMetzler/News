@@ -21,7 +21,7 @@ const mapStateToProps = (state: AppState) => ({
   // isAuthenticated: !!localStorage.getItem("token")
   isAuthenticated: state.auth.isAuthenticated,
   firstName: state.user.firstName,
-  admin: state.user.admin
+  admin: state.user.isAdmin
   // token: state.auth.token
 
   // userDaten: state.user.userDaten
@@ -42,16 +42,19 @@ export const NavbarComponent: React.FC<ConnectedState> = ({
       console.log("token");
     }
   });
+  // setTimeout(() => {
+  // dispatch(userLoad());
+  // }, 1000);
   useEffect(() => {
     // window.M.updateTextFields();
     if (isAuthenticated && !firstName) {
-      // history.push("/");
       dispatch(userLoad());
-      console.log("newload", token);
     }
   });
+  // dispatch(userLoad());
+  // dispatch(admin());
 
-  // console.log(isAuthenticated);
+  console.log(isAuthenticated);
   const logOutFunction = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");

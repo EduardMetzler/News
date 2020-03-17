@@ -6,12 +6,5 @@ export interface AuthStore {
   error: any;
   toSignIn: boolean;
   logInError: String;
-  // user: Object;
-
-  // user: {};
+  isValid: boolean;
 }
-// export interface AuthStore {
-//   isAuthenticated: boolean;
-//   userDaten: Object;
-//   token: String | null;
-// }

@@ -6,7 +6,9 @@ import { AppState } from "../store/model";
 import {
   register,
   login,
-  registerSucces
+  registerSucces,
+  noVormValidation,
+  isVormValidation
   // registerLogin
 } from "../store/auth/auth.actions";
 import { useHistory } from "react-router-dom";
@@ -18,6 +20,7 @@ interface ConnectedState {
   toSignIn: boolean;
   isAuthenticated: boolean;
   isLoading: boolean;
+  isValid: boolean;
   // user: {};
 }
 
@@ -29,13 +32,15 @@ const mapStateToProps = (state: AppState) => ({
   // user: state.authStore.user
   isAuthenticated: !!localStorage.getItem("token"),
   toSignIn: state.auth.toSignIn,
-  isLoading: state.auth.isLoading
+  isLoading: state.auth.isLoading,
+  isValid: state.auth.isValid
 });
 
 export const RegistrationFormComponent: React.FC<ConnectedState> = ({
   isLoading,
   isAuthenticated,
-  toSignIn
+  toSignIn,
+  isValid
 }) => {
   const [formRegister, setFormRegister] = useState({
     firstName: "",
@@ -50,6 +55,7 @@ export const RegistrationFormComponent: React.FC<ConnectedState> = ({
     // window.M.updateTextFields();
     if (toSignIn) {
       history.push("/signIn");
+      dispatch(isVormValidation());
     }
   });
   //   useEffect(() => {
@@ -61,6 +67,18 @@ export const RegistrationFormComponent: React.FC<ConnectedState> = ({
       [event.target.name]: event.target.value
     });
   };
+  useEffect(() => {
+    if (
+      !formRegister.email.includes("@") ||
+      formRegister.password.length < 6 ||
+      formRegister.firstName.length < 1 ||
+      formRegister.lastName.length < 1
+    ) {
+      dispatch(noVormValidation());
+    } else {
+      dispatch(isVormValidation());
+    }
+  });
   const registrationFormPost = () => {
     console.log(formRegister);
     dispatch(register(formRegister));
@@ -130,7 +148,7 @@ export const RegistrationFormComponent: React.FC<ConnectedState> = ({
             <div className="card-action">
               <button
                 className="btn yellow darken-4 waves-effect waves-light"
-                disabled={isLoading}
+                disabled={isLoading || !isValid}
                 onClick={registrationFormPost}
               >
                 Fertig

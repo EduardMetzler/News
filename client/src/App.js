@@ -14,6 +14,9 @@ import "./App.css";
 
 import { Nav } from "./components/Navbar";
 
+// import { logIn2 } from "./page/logIn2.page";
+// import { LogInForm2 } from "./components/logInForm2";
+
 const App = () => {
   const routes = useRoutes();
 

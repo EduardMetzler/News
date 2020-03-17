@@ -1,27 +1,36 @@
 import { Action } from "redux";
-import { Error } from "./error.model";
+import { Error, LogInFormError } from "./error.model";
 import { GET_ERRORS, CLEAR_ERRORS } from "../types";
+import { REGISTER_FORM_ERRORS, registerFormErrors } from "./error.action";
 const INITIAL_STATE = {
-  msg: {},
-  status: "fef",
-  id: ""
+  // msg: {},
+  // status: "fef",
+  // id: ""
+  email: "",
+  password: "",
+  touched: false,
+  message: ""
 };
 
-export default (state: Error = INITIAL_STATE, action: Action): Error => {
+export default (
+  state: LogInFormError = INITIAL_STATE,
+  action: Action
+): LogInFormError => {
   switch (action.type) {
-    //     case GET_ERRORS:
-    //       return {
-    //    msg: action.payload.msg,
-    // status: action.payload.status
-    // id: action.payload.id
-    //       };
-    case CLEAR_ERRORS:
-      return {
-        msg: {},
-        status: "",
-        id: ""
-      };
+    // case CLEAR_ERRORS:
+    //   return {
+    //     msg: {},
+    //     status: "",
+    //     id: ""
+    //   };
+    case REGISTER_FORM_ERRORS:
+      const { payload } = action as ReturnType<typeof registerFormErrors>;
 
+      return {
+        ...state,
+        email: payload.email,
+        password: payload.password
+      };
     default:
       return state;
   }

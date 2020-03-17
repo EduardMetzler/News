@@ -27,13 +27,13 @@ export const NewsComponent: React.FC<ConnectedState> = ({
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  useEffect(() => {
-    if (isAuthenticated) {
-      dispatch(userLoad());
-    } else {
-      // dispatch(userLoad(false));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (isAuthenticated && ) {
+  //     dispatch(userLoad());
+  //   } else {
+  //     // dispatch(userLoad(false));
+  //   }
+  // }, []);
 
   // console.log(isAuthenticated);
   //   const logOutFunction = () => {

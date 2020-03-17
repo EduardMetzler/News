@@ -1,5 +1,15 @@
+// export interface Error {
+//   msg: Object;
+//   status: String;
+//   id: String;
+// }
+
 export interface Error {
-  msg: Object;
-  status: String;
-  id: String;
+  // LogInFormError: LogInFormError;
+}
+export interface LogInFormError {
+  email: string;
+  password: string;
+  touched: boolean;
+  message: string;
 }

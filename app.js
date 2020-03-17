@@ -9,6 +9,8 @@ app.use("/api", require("./routes/newsLoad.routes"));
 app.use("/api/registration", require("./routes/registration.routes"));
 app.use("/api/signIn", require("./routes/signIn.rotes"));
 app.use("/api/admin", require("./routes/admin.routse"));
+app.use("/api/userLoad", require("./routes/userNewLoad.routes"));
+app.use("/api/articleCreate", require("./routes/articleCreate.routes"));
 
 const PORT = config.get("port") || 5000;
 async function start() {

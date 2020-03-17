@@ -1,12 +1,16 @@
 // import { ViewStore } from "./view/view.model";
 // import { NewsStore } from "./news/news.model";
 import { AuthStore } from "./auth/auth.model";
-import { Error } from "./error/error.model";
-import {UserStore} from "./user/user.model"
+import { LogInFormError } from "./error/error.model";
+import { UserStore } from "./user/user.model";
+import { AdminStore } from "./anmin/admin.model";
+import { NewsStore } from "./news/news.model";
 
 export interface AppState {
   // news: NewsStore;
+  admin: AdminStore;
   auth: AuthStore;
-  error: Error;
-  user:UserStore
+  logInFormError: LogInFormError;
+  user: UserStore;
+  news: NewsStore;
 }

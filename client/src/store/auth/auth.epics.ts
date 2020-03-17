@@ -1,5 +1,5 @@
 import { ActionsObservable, ofType } from "redux-observable";
-import React from "react";
+// import React from "react";
 import { map, switchMap, filter, mergeMap, catchError } from "rxjs/operators";
 // import { mergeMap, map, catchError, filter, switchMap } from "rxjs/operators";
 import axios from "axios";
@@ -12,21 +12,18 @@ import {
   register,
   login,
   LOGIN,
-  loginSuccess,
   LOGIN_SuCCESS,
-  loding,
   registerFail,
-  loginFail,
   registerSucces,
-  REGISTER_SUCCESS,
   REGISTER_LOGIN,
   newSetError
+
   // tokenSave
   // registerLogin
 } from "./auth.actions";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { userSave } from "../user/user.actions";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 const storageName = "userData";
 
@@ -202,6 +199,44 @@ const postLoginEpic = (action$: ActionsObservable<ReturnType<typeof login>>) =>
       );
     })
   );
+
+// const getNewUserLoadEpics = (
+//   action$: ActionsObservable<ReturnType<typeof userLoad>>
+// ) =>
+//   action$
+//     .pipe(
+//       filter(isOfType(USER_LOAD)),
+
+//       // ofType<ReturnType<typeof admin>>(ADMIN),
+
+//       switchMap(({ payload }) => {
+//         return ajax({
+//           url: "api/userNewLoad",
+//           method: "POST",
+//           headers: { authorization: `Bearer ${localStorage.getItem("token")}` }
+//         });
+//       })
+//     )
+//     .pipe(
+//       map(
+//         response => {
+//           if (response) {
+//             console.log("new load", response.response);
+//             return userSave(
+//               response.response.firstName,
+//               response.response.lastName,
+//               response.response.admin
+//             );
+//           }
+//         },
+
+//         catchError(response =>
+//           of(newSetError(response.response.message, false))
+//         )
+
+//         // catchError(response => of(registerFail(response.response.message)))
+//       )
+//     );
 
 export const authEpics = [postRegisterEpic, postLoginEpic];
 

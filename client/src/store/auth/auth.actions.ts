@@ -7,8 +7,8 @@
 // export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 // export const REGISTER_FAIL = "REGISTER_FAIL";
 
-import { AuthStore } from "./auth.model";
-import axios from "axios";
+// import { AuthStore } from "./auth.model";
+// import axios from "axios";
 
 export const REGISTER = "REGISTER";
 export const LOGIN = "LOGIN";
@@ -20,8 +20,11 @@ export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_LOGIN = "REGISTER_LOGIN";
 export const NEW_SETERROR = "NEW_SETERROR";
 export const TOKEN_SAVE = "TOKEN_SAVE";
+export const NO_FORM_VALIDATION = "NO_FORM_VALIDATION";
+export const IS_FORM_VALIDATION = "IS_FORM_VALIDATION";
 
 export const LOGIN_FAIL = "LOGIN_FAIL";
+export const USER_LOAD = " USER_LOAD";
 
 export const register = (daten: Object) => ({
   type: REGISTER,
@@ -66,23 +69,16 @@ export const newSetError = (date: string, isload: boolean) => ({
   type: NEW_SETERROR,
   payload: { date, isload }
 });
-// export const tokenSave = (date: any) => ({
-//   type: TOKEN_SAVE,
-//   payload: { date }
-// });
+export const noVormValidation = () => ({
+  type: NO_FORM_VALIDATION,
+  payload: {}
+});
+export const isVormValidation = () => ({
+  type: IS_FORM_VALIDATION,
+  payload: {}
+});
 
-// export const test = (daten: any) => {
-//   return (dispatch: any) => {
-//     dispatch(registerSucces);
-//     axios
-//       .post("https://jsonplaceholder.typicode.com/users")
-//       .then(response => {
-//         const users = response.data;
-//         dispatch(registerSucces);
-//       })
-//       .catch(error => {
-//         const errorMsg = error.message;
-//         dispatch(registerSucces);
-//       });
-//   };
-// };
+export const userLoad = () => ({
+  type: USER_LOAD,
+  payload: {}
+});

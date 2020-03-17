@@ -14,7 +14,7 @@ import {
 const INITIAL_STATE = {
   lastName: "",
   firstName: "",
-  admin: false,
+  isAdmin: false,
   error: "",
   userLoad: false,
   userListe: {}
@@ -36,7 +36,8 @@ export default (
         ...state,
         lastName: payload.lastName,
         firstName: payload.firstName,
-        admin: payload.admin
+        isAdmin: payload.admin
+        // userLoad: true
       };
     case USER_DELETE:
       // const { payload } = action as ReturnType<typeof userDelete>;
@@ -45,13 +46,14 @@ export default (
         ...state,
         lastName: "",
         firstName: "",
-        admin: false
+        isAdmin: false
       };
     case USER_LOAD:
       // const { payload } = action as ReturnType<typeof userLoad>;
 
       return {
-        ...state
+        ...state,
+        error: "test"
       };
 
     // case USER_LISTE:

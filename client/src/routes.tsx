@@ -1,12 +1,15 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { NewsPage } from "./page/news.page";
-import { SignIn } from "./page/signIn.page";
+import { SignIn } from "./page/logIn.page";
+
 import { AdminPage } from "./page/admin.page";
 
 import { Registration } from "./page/registration.page";
 import { AppState } from "./store/model";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
+// import { LogInForm2 } from "./components/logInForm2";
+import { LogIn2 } from "./page/logIn2.page";
 // import { AuthStore } from "./store/user/user.model";
 
 interface ConnectedState {
@@ -14,11 +17,11 @@ interface ConnectedState {
   // userDaten: Object | undefined;
 }
 
-const mapStateToProps = (state: AppState) => ({
-  // isAuthenticated: state.user.isAuthenticated,
-  // isAuthenticated: !state.user.userDaten
-  // userDaten: state.user.userDaten
-});
+// const mapStateToProps = (state: AppState) => ({
+//   // isAuthenticated: state.user.isAuthenticated,
+//   // isAuthenticated: !state.user.userDaten
+//   // userDaten: state.user.userDaten
+// });
 
 export const useRoutes: React.FC<ConnectedState> = () => {
   // console.log(isAuthenticated);
@@ -47,6 +50,9 @@ export const useRoutes: React.FC<ConnectedState> = () => {
 
       <Route path="/registration" exact>
         <Registration></Registration>
+      </Route>
+      <Route path="/l" exact>
+        <LogIn2></LogIn2>
       </Route>
 
       <Redirect to="/" />

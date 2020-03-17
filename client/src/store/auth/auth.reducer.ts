@@ -1,22 +1,19 @@
 import { Action } from "redux";
 import { AuthStore } from "./auth.model";
-import { UserStore } from "../user/user.model";
+// import { UserStore } from "../user/user.model";
 
 import {
   REGISTER,
   LOGIN,
   LOGIN_SuCCESS,
   LOGOUT,
-  LOADING,
   REGISTER_FAIL,
   LOGIN_FAIL,
-  loginFail,
   REGISTER_SUCCESS,
-  loding,
   NEW_SETERROR,
-  loginSuccess,
-  TOKEN_SAVE,
-  newSetError
+  newSetError,
+  IS_FORM_VALIDATION,
+  NO_FORM_VALIDATION
   // tokenSave
 } from "./auth.actions";
 
@@ -30,7 +27,8 @@ const INITIAL_STATE = {
   isLoading: false,
   userDaten: {},
   error: "",
-  logInError: ""
+  logInError: "",
+  isValid: false
   // token: String | null;
   // isAuthenticated: boolean;
   // isLoading: boolean;
@@ -52,6 +50,7 @@ export default (
       return {
         ...state,
         isAuthenticated: true,
+        // isValid: true,
 
         // isAuthenticated: !!localStorage.getItem("token"),
         isLoading: false
@@ -116,6 +115,17 @@ export default (
         ...state,
         isLoading: payload.isload,
         logInError: payload.date
+      };
+
+    case NO_FORM_VALIDATION:
+      return {
+        ...state,
+        isValid: false
+      };
+    case IS_FORM_VALIDATION:
+      return {
+        ...state,
+        isValid: true
       };
 
     default:

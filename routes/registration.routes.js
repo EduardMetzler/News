@@ -9,21 +9,21 @@ const router = Router();
 
 router.post(
   "/",
-  [
-    check("payload.email", "das ist kein email").isEmail(),
-    check("payload.password", "min länge 6 zeichen").isLength({ min: 6 })
-  ],
+  // [
+  //   check("payload.email", "das ist kein email").isEmail(),
+  //   check("payload.password", "min länge 6 zeichen").isLength({ min: 6 })
+  // ],
 
   async (req, res) => {
     console.log("req.body.payload");
     try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({
-          errors: errors.array(),
-          message: "Falsche daten bei registrirung"
-        });
-      }
+      // const errors = validationResult(req);
+      // if (!errors.isEmpty()) {
+      //   return res.status(400).json({
+      //     errors: errors.array(),
+      //     message: "Falsche daten bei registrirung"
+      //   });
+      // }
 
       const { firstName, lastName, email, password } = req.body.payload;
       // const firstName = req.body.payload.firstName;

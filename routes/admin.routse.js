@@ -15,7 +15,7 @@ router.post("/", auth, async (req, res) => {
     console.log("alle users", users.length, users);
     res.json(users);
   } catch (e) {
-    res.status(500).json({ message: "Etwas schif gelaufen" });
+    res.status(500).json({ message: "Etwas schif gelaufengggggggggggg" });
   }
 });
 
