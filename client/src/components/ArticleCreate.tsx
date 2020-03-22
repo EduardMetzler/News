@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AppState } from "../store/model";
 import "../App.css";
 import "../index.css";
@@ -16,6 +16,7 @@ import { connect, useDispatch } from "react-redux";
 import { OneUserStore } from "../store/anmin/admin.model";
 import { Article } from "../store/news/news.model";
 import { articleCreate } from "../store/anmin/admin.actions";
+import { useHistory } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
@@ -44,6 +45,7 @@ const mapStateToProps = (state: AppState) => ({
 
 export const ArticleCreateComponent: React.FC<ConnectedState> = ({}) => {
   const dispatch = useDispatch();
+  // const history = useHistory();
 
   return (
     <Formik
@@ -52,9 +54,10 @@ export const ArticleCreateComponent: React.FC<ConnectedState> = ({}) => {
       onSubmit={(values, { setSubmitting, resetForm }) => {
         console.log(values);
         dispatch(articleCreate(values));
+        // history.push("/");
         setSubmitting(true);
         setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
+          // alert(JSON.stringify(values, null, 2));
           resetForm();
           setSubmitting(false);
         }, 500);

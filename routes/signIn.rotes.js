@@ -72,7 +72,7 @@ router.post(
   //   check("password", "geben Sie password").exists()
   // ],
   async (req, res) => {
-    console.log("2fffffffffffff");
+    // console.log("2fffffffffffff");
     try {
       // console.log("1", req.body);
       // const errors = validationResult(req);
@@ -82,12 +82,12 @@ router.post(
       //     message: "falsche daten bei loginnnn"
       //   });
       // }
-      console.log("2");
+      // console.log("2");
 
       const { email, password } = req.body;
-      console.log(email, password);
+      // console.log(email, password);
       const user = await User.findOne({ email });
-      console.log("das ist user", user);
+      // console.log("das ist user", user);
 
       if (!user) {
         console.log("Email oder passwort falsch");
@@ -97,7 +97,7 @@ router.post(
           .json({ message: "///Email oder passwort falsch" });
       }
       const isMatch = await bcrypt.compare(password, user.password);
-      console.log(password);
+      // console.log(password);
       if (!isMatch) {
         // return res.json({ message: "Email oder passwort falsch" });
         return res.status(400).json({ message: "Email oder passwort falsch" });

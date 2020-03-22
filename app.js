@@ -11,6 +11,8 @@ app.use("/api/signIn", require("./routes/signIn.rotes"));
 app.use("/api/admin", require("./routes/admin.routse"));
 app.use("/api/userLoad", require("./routes/userNewLoad.routes"));
 app.use("/api/articleCreate", require("./routes/articleCreate.routes"));
+app.use("/api/commentSave", require("./routes/commentSave.routes"));
+app.use("/api/allComments", require("./routes/allComments"));
 
 const PORT = config.get("port") || 5000;
 async function start() {

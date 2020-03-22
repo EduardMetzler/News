@@ -5,6 +5,7 @@ import { LogInFormError } from "./error/error.model";
 import { UserStore } from "./user/user.model";
 import { AdminStore } from "./anmin/admin.model";
 import { NewsStore } from "./news/news.model";
+import { CommentsStore } from "./comments/comments.model";
 
 export interface AppState {
   // news: NewsStore;
@@ -13,4 +14,5 @@ export interface AppState {
   logInFormError: LogInFormError;
   user: UserStore;
   news: NewsStore;
+  comments: CommentsStore;
 }

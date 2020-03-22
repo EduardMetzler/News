@@ -9,10 +9,10 @@ const auth = require("../middleware/auth.middleware");
 const router = Router();
 
 router.post("/", auth, async (req, res) => {
-  console.log("rrrrrr", req.user);
+  // console.log("rrrrrr", req.user);
   try {
     const users = await User.find({ _id: req.user.userId });
-    console.log("alle users", users.length, users);
+    // console.log("alle users", users.length, users);
 
     res.json(users);
   } catch (e) {

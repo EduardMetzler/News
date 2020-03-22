@@ -59,7 +59,7 @@ export const NavbarComponent: React.FC<ConnectedState> = ({
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
 
-    history.push(`/`);
+    // history.push(`/`);
 
     dispatch(logOut());
     dispatch(userDelete());
@@ -68,8 +68,8 @@ export const NavbarComponent: React.FC<ConnectedState> = ({
     <>
       <nav>
         <div className="nav-wrapper">
-          <a href="/" className="brand-logo">
-            Logo
+          <a href="/" className="brand-logo" style={{ marginLeft: "20px" }}>
+            News
           </a>
           <a href="#" data-target="mobile-demo" className="sidenav-trigger">
             <i className="material-icons">menu</i>
@@ -82,7 +82,9 @@ export const NavbarComponent: React.FC<ConnectedState> = ({
             {/* <li onClick={() => dispatch(isAuth())}> */}
             <li>
               {isAuthenticated ? (
-                <div onClick={logOutFunction}>Abmelden </div>
+                <Link onClick={logOutFunction} to="/">
+                  Abmelden{" "}
+                </Link>
               ) : null}
             </li>
             <li>

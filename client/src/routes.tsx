@@ -10,6 +10,8 @@ import { AppState } from "./store/model";
 // import { connect } from "react-redux";
 // import { LogInForm2 } from "./components/logInForm2";
 import { LogIn2 } from "./page/logIn2.page";
+import { OneNewsPage } from "./page/oneNew.page";
+
 // import { AuthStore } from "./store/user/user.model";
 
 interface ConnectedState {
@@ -53,6 +55,9 @@ export const useRoutes: React.FC<ConnectedState> = () => {
       </Route>
       <Route path="/l" exact>
         <LogIn2></LogIn2>
+      </Route>
+      <Route path="/:id" exact>
+        <OneNewsPage></OneNewsPage>
       </Route>
 
       <Redirect to="/" />
