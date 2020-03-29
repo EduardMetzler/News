@@ -8,7 +8,8 @@ import {
   ALL_COMMENTS,
   allComments,
   allCommentsLoad,
-  ALL_COMMENTS_LOAD
+  ALL_COMMENTS_LOAD,
+  ALL_COMMENTS_CLEAR
 } from "./comments.action";
 
 const INITIAL_STATE = {
@@ -41,6 +42,12 @@ export default (
       return {
         ...state,
         comment: payload
+        // isLoading: false
+      };
+    case ALL_COMMENTS_CLEAR:
+      return {
+        ...state,
+        comment: []
       };
     // case ALL_COMMENTS_LOAD:
     //   const { payload } = action as ReturnType<typeof allCommentsLoad>;

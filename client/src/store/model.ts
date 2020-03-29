@@ -6,6 +6,7 @@ import { UserStore } from "./user/user.model";
 import { AdminStore } from "./anmin/admin.model";
 import { NewsStore } from "./news/news.model";
 import { CommentsStore } from "./comments/comments.model";
+import { OneNewsStore } from "./oneNew/oneNew.model";
 
 export interface AppState {
   // news: NewsStore;
@@ -15,4 +16,5 @@ export interface AppState {
   user: UserStore;
   news: NewsStore;
   comments: CommentsStore;
+  oneNew: OneNewsStore;
 }

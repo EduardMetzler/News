@@ -22,6 +22,18 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: "Etwas schief gelaufen" });
   }
 });
+router.get("/:id", async (req, res) => {
+  console.log(req.params.id);
+  try {
+    // const comments = await Comment.find({});
+    // console.log(comments);
+    const article = await Article.findById(req.params.id);
+    console.log(article);
+    res.json(article);
+  } catch (e) {
+    res.status(500).json({ message: "Etwas schief gelaufen" });
+  }
+});
 
 //   try {
 //     const comments = await Comment.find({ _id: "5e739c99a7dfcc46b07cd37d" });

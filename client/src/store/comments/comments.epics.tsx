@@ -8,15 +8,18 @@ import {
   ALL_COMMENTS_LOAD,
   allCommentsLoad
 } from "./comments.action";
-import { isOfType } from "typesafe-actions";
+import { isOfType, action } from "typesafe-actions";
 import { mergeMap, filter, map, catchError } from "rxjs/operators";
 import { ajax } from "rxjs/ajax";
 import { of } from "rxjs";
 import { newSetError } from "../auth/auth.actions";
-// interface getArticles {
-//   type: typeof LOAD_ARTICLES;
-//   payload: any;
-// }
+interface getArticles {
+  type: typeof ALL_COMMENTS_LOAD;
+  payload: any;
+}
+
+// import { a } from "./comments.model";
+
 const postCommentEpic = (
   action$: ActionsObservable<ReturnType<typeof commentSave>>
 ) =>
@@ -46,19 +49,19 @@ const getAllCommentEpic = (
   action$.pipe(
     filter(isOfType(ALL_COMMENTS_LOAD)),
 
-    mergeMap((payload: any) =>
+    mergeMap((action: any) =>
       ajax({
-        // url: `api/allComments/${payload}`,
-        url: `api/allComments/`,
+        url: `api/allComments/${action.payload.id}`,
+        // url: `api/allComments/5e739c99a7dfcc46b07cd37d`,
 
         method: "GET",
         headers: {
           "Content-Type": "application/json"
-        },
-
-        body: {
-          payload
         }
+
+        // body: {
+        //   payload
+        // }
       }).pipe(
         map((response: any) => allComments(response.response)),
 

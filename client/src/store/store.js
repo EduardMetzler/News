@@ -10,6 +10,7 @@ import { userEpics } from "./user/user.epics";
 import { adminEpics } from "./anmin/admin.epics";
 import { newsEpics } from "./news/news.epics";
 import { commentEpics } from "./comments/comments.epics";
+import { oneNewEpics } from "./oneNew/oneNew.epics";
 
 // import viewReducer from "./view/view.redcusers";
 // import newsReducer from "./news/news.reducers";
@@ -20,13 +21,15 @@ import userReducer from "./user/user.reducer";
 import adminReducer from "./anmin/admin.reducer";
 import newsReducer from "./news/news.reducer";
 import commentsReducer from "./comments/comments.reducer";
+import oneNewReducer from "./oneNew/oneNew.reducer";
 
 const epic = combineEpics(
   ...authEpics,
   ...userEpics,
   ...adminEpics,
   ...newsEpics,
-  ...commentEpics
+  ...commentEpics,
+  ...oneNewEpics
 );
 const epicDependencies = {};
 const epicMiddleware = createEpicMiddleware({ dependencies: epicDependencies });
@@ -40,7 +43,8 @@ export const configureStore = () => {
       user: userReducer,
       admin: adminReducer,
       news: newsReducer,
-      comments: commentsReducer
+      comments: commentsReducer,
+      oneNew: oneNewReducer
     }),
     undefined,
     composeWithDevTools(compose(applyMiddleware(epicMiddleware)))

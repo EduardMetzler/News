@@ -12,3 +12,6 @@ export interface MyComment {
   owner?: String;
   _id?: String;
 }
+export interface a {
+  id: string;
+}

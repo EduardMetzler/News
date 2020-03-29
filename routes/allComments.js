@@ -11,23 +11,21 @@ const Comment = require("../models/Comment");
 
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.get("/:id", async (req, res) => {
   console.log("req.params.id/ddddddddddddddddddddddddddddddddddddddddddddddd");
   // console.log(req.params.id.payload.payload.id);
 
-  // console.log(req.params);
+  console.log(req.params.id);
 
   // console.log("id:", req.body.payload.payload);
 
   try {
     // const oneEntry = await Text.findById(req.params.id);
-    const comments = await Comment.find({});
-
-    // const comments = await Comment.find({ owner: req.body.payload.payload });
     // const comments = await Comment.find({});
+    // const comments = await Comment.find({ owner: req.body.payload.payload });
     // // const oneEntry = await Article.find({ _id: req.params.id });
-
-    console.log("ddddddd", comments);
+    const comments = await Comment.find({ owner: req.params.id });
+    // console.log("ddddddd", comments);
     res.json(comments);
   } catch (e) {
     res.status(500).json({ message: "Etwas schief gelaufen" });
