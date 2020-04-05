@@ -100,7 +100,9 @@ router.post(
       // console.log(password);
       if (!isMatch) {
         // return res.json({ message: "Email oder passwort falsch" });
-        return res.status(400).json({ message: "Email oder passwort falsch" });
+        return res
+          .status(400)
+          .json({ message: "Email oder passwort falsch////" });
       }
       const token = jwt.sign({ userId: user.id }, config.get("jwtSecter"), {
         expiresIn: "1h"

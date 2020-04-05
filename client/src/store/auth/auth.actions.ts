@@ -25,6 +25,8 @@ export const IS_FORM_VALIDATION = "IS_FORM_VALIDATION";
 
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const USER_LOAD = " USER_LOAD";
+export const NEW_PASSWORD_TEXT = " NEW_PASSWORD_TEXT";
+export const NEW_PASSWORD_IS_SAVE = "  NEW_PASSWORD_IS_SAVE";
 
 export const register = (daten: Object) => ({
   type: REGISTER,
@@ -80,5 +82,14 @@ export const isVormValidation = () => ({
 
 export const userLoad = () => ({
   type: USER_LOAD,
+  payload: {}
+});
+
+export const newPasswordText = (password: string) => ({
+  type: NEW_PASSWORD_TEXT,
+  payload: password
+});
+export const newPasswordIsSave = () => ({
+  type: NEW_PASSWORD_IS_SAVE,
   payload: {}
 });

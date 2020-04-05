@@ -1,3 +1,9 @@
+// import React from "react";
+// interface ConnectedState {}
+// export const AdvertisingCreate: React.FC<ConnectedState> = () => {
+//   return <div>test</div>;
+// };
+
 import React, { useEffect } from "react";
 import { AppState } from "../store/model";
 import "../App.css";
@@ -15,19 +21,12 @@ import { connect, useDispatch } from "react-redux";
 // import { userLoad, admin } from "../store/user/user.actions";
 import { OneUserStore } from "../store/anmin/admin.model";
 import { Article } from "../store/news/news.model";
-import { articleCreate } from "../store/anmin/admin.actions";
+import { articleCreate, advertisingCreat } from "../store/anmin/admin.actions";
 import { useHistory } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string()
-    .min(1, "min 1 zeichen")
-    .max(100, "max 100")
-    .required("darf nich leersein"),
-  text: Yup.string()
-    // .email("hier muss email sein")
-    .min(1, "min 1 zeichen")
-    .max(100000, "max 100000")
-    .required("darf nicht leer sein")
+  imageUrl: Yup.string().required("darf nich leersein"),
+  url: Yup.string().required("darf nicht leer sein")
 });
 
 interface ConnectedState {
@@ -43,17 +42,17 @@ const mapStateToProps = (state: AppState) => ({
   // userListe: state.admin.userListe
 });
 
-export const ArticleCreateComponent: React.FC<ConnectedState> = ({}) => {
+export const AdvertisingCreate: React.FC<ConnectedState> = ({}) => {
   const dispatch = useDispatch();
   // const history = useHistory();
 
   return (
     <Formik
-      initialValues={{ title: "", text: "" }}
+      initialValues={{ imageUrl: "", url: "" }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         console.log(values);
-        dispatch(articleCreate(values));
+        dispatch(advertisingCreat(values));
         // history.push("/");
         setSubmitting(true);
         setTimeout(() => {
@@ -77,35 +76,38 @@ export const ArticleCreateComponent: React.FC<ConnectedState> = ({}) => {
           <form className="input-row col s10 offset-s1" onSubmit={handleSubmit}>
             {/* {JSON.stringify(values)} */}
             <div>
-              <label htmlFor="title">Title</label>
+              <label htmlFor="image">Bild URL</label>
               <input
                 className="input-field "
                 type="text"
-                name="title"
-                id="title"
-                placeholder="Überschrift eingeben"
+                name="imageUrl"
+                id="imageUrl"
+                placeholder="URL eingeben"
                 onChange={handleChange}
-                value={values.title}
+                value={values.imageUrl}
                 onBlur={handleBlur}
                 //   className={touched.name && errors.name ? "has-error" : null}
               />
 
-              <ErrorComponent touched={touched.title} message={errors.title} />
+              <ErrorComponent
+                touched={touched.imageUrl}
+                message={errors.imageUrl}
+              />
             </div>
             <div className="">
-              <label htmlFor="text">Text</label>
+              <label htmlFor="url">Link</label>
               <textarea
                 className="materialize-textarea"
                 // type="text"
-                name="text"
-                id="text"
-                placeholder="Text eingeben"
+                name="url"
+                id="url"
+                placeholder="URL eingeben"
                 onChange={handleChange}
-                value={values.text}
+                value={values.url}
                 onBlur={handleBlur}
                 //   className={touched.email && errors.email ? "has-error" : null}
               />
-              <ErrorComponent touched={touched.text} message={errors.text} />
+              <ErrorComponent touched={touched.url} message={errors.url} />
             </div>
             <div>
               <button
@@ -123,4 +125,4 @@ export const ArticleCreateComponent: React.FC<ConnectedState> = ({}) => {
   );
 };
 
-export const ArticleCreate = connect(mapStateToProps)(ArticleCreateComponent);
+// export const ArticleCreate = connect(mapStateToProps)(ArticleCreateComponent);

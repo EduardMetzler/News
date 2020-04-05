@@ -1,11 +1,11 @@
 export interface NewsStore {
   articles: Article[];
-  article: {};
+  // article: {};
 }
 
 export interface Article {
   title: string;
-  text: string;
+  text?: string;
   _id?: string;
   // description: string;
   // url: string;

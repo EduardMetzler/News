@@ -16,7 +16,11 @@ import {
   registerFail,
   registerSucces,
   REGISTER_LOGIN,
-  newSetError
+  newSetError,
+  newPasswordText,
+  NEW_PASSWORD_TEXT,
+  newPasswordIsSave,
+  NEW_SETERROR
 
   // tokenSave
   // registerLogin
@@ -193,12 +197,64 @@ const postLoginEpic = (action$: ActionsObservable<ReturnType<typeof login>>) =>
           }
         }),
         // newSetError(response.response.message)
-        catchError(response =>
-          of(newSetError(response.response.message, false))
+        catchError(
+          response => of(newSetError(response.response.message, false))
+
+          // of(newSetError(response.response.message, false))
         )
       );
     })
   );
+
+const newPasswordEpic = (
+  action$: ActionsObservable<ReturnType<typeof newPasswordText>>
+) =>
+  action$
+    .pipe(
+      ofType<ReturnType<typeof register>>(NEW_PASSWORD_TEXT),
+
+      switchMap(({ payload }) => {
+        const userId = localStorage.getItem("userId");
+
+        return ajax({
+          url: "api/myProfile",
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: {
+            payload,
+            userId
+          }
+        });
+      })
+    )
+    .pipe(
+      map(
+        response => newPasswordIsSave(),
+        // map((response: any) => allComments(response.response)),
+
+        catchError(response => of(registerFail(response.response.message)))
+      )
+    );
+
+// const tokenRemoveEpic = (
+//   action$: ActionsObservable<ReturnType<typeof newSetError>>
+// ) =>
+//   action$.pipe(ofType<ReturnType<typeof register>>(NEW_SETERROR)).pipe(
+//     map(
+//       response => {
+//         if (response) {
+//           console.log("response.response.firstName");
+//           localStorage.removeItem("userId");
+//           // return null;
+//         }
+//       },
+//       // map((response: any) => allComments(response.response)),
+
+//       catchError(response => of(registerFail(response.response.message)))
+//     )
+//   );
 
 // const getNewUserLoadEpics = (
 //   action$: ActionsObservable<ReturnType<typeof userLoad>>
@@ -238,7 +294,7 @@ const postLoginEpic = (action$: ActionsObservable<ReturnType<typeof login>>) =>
 //       )
 //     );
 
-export const authEpics = [postRegisterEpic, postLoginEpic];
+export const authEpics = [postRegisterEpic, postLoginEpic, newPasswordEpic];
 
 // const postLoginEpic = (action$: ActionsObservable<ReturnType<typeof login>>) =>
 //   action$.pipe(

@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Admin } from "../components/admin";
 import { useDispatch, connect } from "react-redux";
 import { admin } from "../store/user/user.actions";
 import { AppState } from "../store/model";
 import { useEffect } from "react";
+import { OneUserStore } from "../store/anmin/admin.model";
 
 interface ConnectedState {
   isAdmin: boolean;
   content: string;
   isAuthenticated: boolean;
+  userListe?: OneUserStore[];
+
   // token: string | null;
 }
 
@@ -16,28 +19,34 @@ const mapStateToProps = (state: AppState) => ({
   isAdmin: state.user.isAdmin,
   content: state.admin.content,
   isAuthenticated: state.auth.isAuthenticated,
-  token: state.auth.token
+  token: state.auth.token,
+  userListe: state.admin.userListe
 });
 
 export const AdminPageComponent: React.FC<ConnectedState> = ({
   isAdmin,
   content,
-  isAuthenticated
+  isAuthenticated,
+  userListe
   // token
 }) => {
+  const [userListeLoad, setUserListeLoad] = useState(true);
+
   const dispatch = useDispatch();
-  // console.log("terrrrrrrrrrrrrrrrrrrrr");
-  dispatch(admin());
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     // dispatch(admin());
-  //     console.log("ddddddddddddddd");
-  //   }
-  // });
-  // const k = content;
+
+  useEffect(() => {
+    if (userListeLoad) {
+      dispatch(admin());
+      setUserListeLoad(false);
+    }
+  });
   return (
     <>
-      <div>{isAdmin ? <Admin /> : null}</div>
+      <div>
+        {isAdmin ? (
+          <Admin isAdmin={isAdmin} content={content} userListe={userListe} />
+        ) : null}
+      </div>
       {/* <div>{content == "" ? <Admin /> : null}</div> */}
     </>
   );

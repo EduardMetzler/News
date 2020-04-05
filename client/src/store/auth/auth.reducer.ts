@@ -13,7 +13,9 @@ import {
   NEW_SETERROR,
   newSetError,
   IS_FORM_VALIDATION,
-  NO_FORM_VALIDATION
+  NO_FORM_VALIDATION,
+  NEW_PASSWORD_TEXT,
+  NEW_PASSWORD_IS_SAVE
   // tokenSave
 } from "./auth.actions";
 
@@ -115,6 +117,8 @@ export default (
         ...state,
         isLoading: payload.isload,
         logInError: payload.date
+        // isAuthenticated: !!localStorage.getItem("token"),
+        // token: ""
       };
 
     case NO_FORM_VALIDATION:
@@ -126,6 +130,16 @@ export default (
       return {
         ...state,
         isValid: true
+      };
+    case NEW_PASSWORD_TEXT:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case NEW_PASSWORD_IS_SAVE:
+      return {
+        ...state,
+        isLoading: false
       };
 
     default:

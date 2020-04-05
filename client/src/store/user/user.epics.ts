@@ -41,7 +41,7 @@ const getNewUserLoadEpics = (
     .pipe(
       map(
         response => {
-          if (response) {
+          if (response.response[0]._id) {
             console.log("new load", response.response[0]._id);
             return userSave(
               response.response[0].firstName,
@@ -49,6 +49,10 @@ const getNewUserLoadEpics = (
               response.response[0].admin
             );
           }
+          // else if (!response.response[0]._id) {
+          //   return console.log("ssssssssssssssssss");
+          //   // return localStorage.removeItem("userId");
+          // }
         },
 
         catchError(response =>

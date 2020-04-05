@@ -46,6 +46,7 @@ export const NavbarComponent: React.FC<ConnectedState> = ({
   // dispatch(userLoad());
   // }, 1000);
   useEffect(() => {
+    console.log("test");
     // window.M.updateTextFields();
     if (isAuthenticated && !firstName) {
       dispatch(userLoad());
@@ -95,7 +96,8 @@ export const NavbarComponent: React.FC<ConnectedState> = ({
             <li>
               {isAuthenticated && firstName ? (
                 <div style={{ marginLeft: "30px", marginRight: "30px" }}>
-                  Hallo {firstName} !
+                  <Link to="myProfile"> Hallo {firstName} ! </Link>
+                  {/* Hallo {firstName} ! */}
                 </div>
               ) : null}
             </li>

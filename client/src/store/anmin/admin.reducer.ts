@@ -6,7 +6,8 @@ import {
   USER_LISTE,
   ALL_USERD,
   ARTICLE_CREATE,
-  TO_ARTICLE_CREATE
+  TO_ARTICLE_CREATE,
+  TO_ADVERTISING_CREATE
 } from "./admin.actions";
 const INITIAL_STATE = {
   lastName: "",
@@ -46,6 +47,12 @@ export default (
       return {
         ...state,
         content: "TO_ARTICLE_CREATE"
+      };
+
+    case TO_ADVERTISING_CREATE:
+      return {
+        ...state,
+        content: "TO_ADVERTISING_CREATE"
       };
 
     default:

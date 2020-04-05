@@ -7,6 +7,7 @@ import { AdminStore } from "./anmin/admin.model";
 import { NewsStore } from "./news/news.model";
 import { CommentsStore } from "./comments/comments.model";
 import { OneNewsStore } from "./oneNew/oneNew.model";
+import { AdvertisingStore } from "./advertising/advertising.models";
 
 export interface AppState {
   // news: NewsStore;
@@ -17,4 +18,5 @@ export interface AppState {
   news: NewsStore;
   comments: CommentsStore;
   oneNew: OneNewsStore;
+  advertising: AdvertisingStore;
 }

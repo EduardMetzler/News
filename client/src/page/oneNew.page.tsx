@@ -36,20 +36,14 @@ import {
 import { MyComment } from "../store/comments/comments.model";
 
 type CommentSend = (comment: any) => void;
-// type ChangeHandlerComment = (event: any) => void;
 
 interface ConnectedState {
-  // article: { title: ""; text: ""; _id: "" };
   article: OneArticle;
   isAuthenticated: boolean;
   firstName: string;
   lastName: string;
   isLoading: boolean;
   comments: MyComment[];
-  // id: string;
-  // changeHandlerComment: ChangeHandlerComment;
-  // oneComment: string;
-  // commentSend: CommentSend;
 }
 
 const mapStateToProps = (state: AppState) => ({

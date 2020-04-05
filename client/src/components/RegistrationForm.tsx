@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, connect } from "react-redux";
-// import { registrationFormLoad } from "../store/user/user.actions";
+
 import "../index.css";
 import { AppState } from "../store/model";
 import {
@@ -9,27 +9,17 @@ import {
   registerSucces,
   noVormValidation,
   isVormValidation
-  // registerLogin
 } from "../store/auth/auth.actions";
 import { useHistory } from "react-router-dom";
 
 interface ConnectedState {
-  // articles?: Article[];
-  // showAllNews?: boolean;
-  // error: boolean;
   toSignIn: boolean;
   isAuthenticated: boolean;
   isLoading: boolean;
   isValid: boolean;
-  // user: {};
 }
 
 const mapStateToProps = (state: AppState) => ({
-  // articles: state.news.articles,
-  // showAllNews: state.view.showAllNews,
-  // error: state.view.error,
-  // isLoading: state.view.isLoading
-  // user: state.authStore.user
   isAuthenticated: !!localStorage.getItem("token"),
   toSignIn: state.auth.toSignIn,
   isLoading: state.auth.isLoading,
@@ -52,15 +42,12 @@ export const RegistrationFormComponent: React.FC<ConnectedState> = ({
 
   const dispatch = useDispatch();
   useEffect(() => {
-    // window.M.updateTextFields();
     if (toSignIn) {
       history.push("/signIn");
       dispatch(isVormValidation());
     }
   });
-  //   useEffect(() => {
-  //     window.M.updateTextFields();
-  //   }, []);
+
   const changeHandlerRegister = (event: any) => {
     setFormRegister({
       ...formRegister,
@@ -82,7 +69,6 @@ export const RegistrationFormComponent: React.FC<ConnectedState> = ({
   const registrationFormPost = () => {
     console.log(formRegister);
     dispatch(register(formRegister));
-    // dispatch(registerLogin(formRegister));
   };
 
   return (
@@ -98,7 +84,6 @@ export const RegistrationFormComponent: React.FC<ConnectedState> = ({
                   value={formRegister.firstName}
                   type="text"
                   name="firstName"
-                  // className="yellow-input"
                   onChange={changeHandlerRegister}
                 />
                 <label className="active" htmlFor="firstName">
@@ -111,7 +96,6 @@ export const RegistrationFormComponent: React.FC<ConnectedState> = ({
                   value={formRegister.lastName}
                   type="text"
                   name="lastName"
-                  // className="yellow-input"
                   onChange={changeHandlerRegister}
                 />
                 <label className="active" htmlFor="lastName">
@@ -124,7 +108,6 @@ export const RegistrationFormComponent: React.FC<ConnectedState> = ({
                   value={formRegister.email}
                   type="text"
                   name="email"
-                  // className="yellow-input"
                   onChange={changeHandlerRegister}
                 />
                 <label className="active" htmlFor="email">
@@ -137,7 +120,6 @@ export const RegistrationFormComponent: React.FC<ConnectedState> = ({
                   value={formRegister.password}
                   type="password"
                   name="password"
-                  // className="yellow-input"
                   onChange={changeHandlerRegister}
                 />
                 <label className="active" htmlFor="password">

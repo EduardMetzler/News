@@ -8,25 +8,26 @@ import { connect, useDispatch } from "react-redux";
 // import { logOut, login, loginSuccess } from "../store/auth/auth.actions";
 // import { userLoad, admin } from "../store/user/user.actions";
 import { OneUserStore } from "../store/anmin/admin.model";
+import { newAdmin } from "../store/anmin/admin.actions";
 
 interface ConnectedState {
-  isAdmin: boolean;
-  content: string;
+  // isAdmin: boolean;
+  // content: string;
   userListe?: OneUserStore[];
 }
 
 const mapStateToProps = (state: AppState) => ({
-  isAdmin: state.user.isAdmin,
-  content: state.admin.content,
-  userListe: state.admin.userListe
+  // isAdmin: state.user.isAdmin,
+  // content: state.admin.content,
+  // userListe: state.admin.userListe
 });
 
 export const UserListeComponent: React.FC<ConnectedState> = ({ userListe }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // if (userListe === []) {
   //   dispatch(admin());
   // }
-  console.log(userListe);
+  // console.log(userListe);
 
   return (
     <>
@@ -49,6 +50,15 @@ export const UserListeComponent: React.FC<ConnectedState> = ({ userListe }) => {
                 <td>{user.firstName}</td>
                 <td>{user.lastName}</td>
                 <td>{user.email}</td>
+                <td>
+                  <button
+                    // disabled={user.admin}
+                    className="btn yellow darken-4 waves-effect waves-light"
+                    onClick={() => dispatch(newAdmin(user._id))}
+                  >
+                    neue Admin
+                  </button>
+                </td>
               </tr>
             );
           })}

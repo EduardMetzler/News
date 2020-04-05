@@ -9,13 +9,14 @@ import { Registration } from "./page/registration.page";
 import { AppState } from "./store/model";
 // import { connect } from "react-redux";
 // import { LogInForm2 } from "./components/logInForm2";
-import { LogIn2 } from "./page/logIn2.page";
+// import { LogIn2 } from "./page/logIn2.page";
 import { OneNewsPage } from "./page/oneNew.page";
+import { MyProfile } from "./page/myProfile";
 
 // import { AuthStore } from "./store/user/user.model";
 
 interface ConnectedState {
-  isAuthenticated: boolean;
+  // isAuthenticated: boolean;
   // userDaten: Object | undefined;
 }
 
@@ -53,8 +54,11 @@ export const useRoutes: React.FC<ConnectedState> = () => {
       <Route path="/registration" exact>
         <Registration></Registration>
       </Route>
-      <Route path="/l" exact>
+      {/* <Route path="/l" exact>
         <LogIn2></LogIn2>
+      </Route> */}
+      <Route path="/myProfile" exact>
+        <MyProfile></MyProfile>
       </Route>
       <Route path="/:id" exact>
         <OneNewsPage></OneNewsPage>

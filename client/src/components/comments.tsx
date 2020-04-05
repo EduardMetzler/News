@@ -33,23 +33,20 @@ export const CommentsComponent: React.FC<ConnectedState> = ({
 
     event.preventDefault();
     commentSend(comment);
-    // setNewTodo("");
+
     setComment({
       ...comment,
       commentText: ""
     });
   };
 
-  //   console.log(oneComment);
   return (
     <>
       {isAuthenticated ? (
         <form onSubmit={send}>
-          {/* <form> */}
           <label htmlFor="text">Mein Kommentar</label>
           <textarea
             className="materialize-textarea"
-            // type="text"
             name="Comment"
             id="Comment"
             placeholder="Ihre Kommentar"
@@ -57,7 +54,6 @@ export const CommentsComponent: React.FC<ConnectedState> = ({
             value={comment.commentText}
           />
           <button
-            // value={oneComment.commentText}
             type="submit"
             className="btn yellow darken-4 waves-effect waves-light"
             disabled={comment.commentText === "" || isLoading}
@@ -79,15 +75,7 @@ export const CommentsComponent: React.FC<ConnectedState> = ({
                           {""} {oneComment.lastName}:
                         </h5>
                         <h6>{oneComment.text}</h6>
-                        <div
-                          style={{
-                            width: "100%",
-                            height: "1px",
-                            background: "red"
-                          }}
-                        >
-                          {" "}
-                        </div>
+                        <div className="divider"></div>
                       </div>
                     ) : null}
                   </div>
@@ -105,4 +93,3 @@ export const CommentsComponent: React.FC<ConnectedState> = ({
     </>
   );
 };
-// export const Comment = connect(mapStateToProps)(CommentsComponent);

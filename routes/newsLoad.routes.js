@@ -12,11 +12,11 @@ const Comment = require("../models/Comment");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  // console.log("req.params.id");
   try {
-    // const comments = await Comment.find({});
-    // console.log(comments);
     const articles = await Article.find({});
+
+    // console.log(articles);
+
     res.json(articles);
   } catch (e) {
     res.status(500).json({ message: "Etwas schief gelaufen" });

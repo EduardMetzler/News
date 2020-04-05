@@ -20,7 +20,7 @@ export const OneNew: React.FC<ConnectedState> = ({ article }) => {
 
   return (
     <div className="row">
-      <div className="col s8 offset-s2">
+      <div className="col s8 offset-s2 section">
         <h3>{article.title}</h3>
         <div>{article.text}</div>
       </div>

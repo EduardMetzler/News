@@ -19,4 +19,19 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
+router.put("/newAdmin", async (req, res) => {
+  console.log(req.body);
+  try {
+    const user = await User.findOne({ _id: req.body.id });
+    user.admin = true;
+    //  const newAdmin= user
+    console.log(user);
+    User.findByIdAndUpdate(req.body.id, user, function(err, user) {
+      if (!err) return res.status(200);
+    });
+  } catch (e) {
+    res.status(500).json({ message: "Etwas schif gelaufengggggggggggg" });
+  }
+});
+
 module.exports = router;
